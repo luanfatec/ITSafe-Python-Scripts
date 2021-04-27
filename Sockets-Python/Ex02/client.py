@@ -12,6 +12,8 @@ try:
     while True:
         message = input("Enviar: ")
         client.send(message.encode())
+        if message == "sair":
+            break
         data_server = client.recv(2048).decode()
         print(data_server)
 

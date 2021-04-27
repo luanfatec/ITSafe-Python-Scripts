@@ -64,10 +64,12 @@ def getip():
 
 def getioreso():
     ipcnf = os.popen("ipconfig").readlines()
+    apis = []
     for item in ipcnf:
         if "Endereço IPv4." in item or "Endere‡o IPv4" in item:
-            print(item[49:])
-            break
+            apis.append(item[49:])
+
+    return apis
 
 def get_mails():
     resp = requests.get("https://www.sanofi.com.br/pt/fale-conosco").text
@@ -76,6 +78,13 @@ def get_mails():
         separe_hrefs = re.findall(r'[http|https](.*)', item, flags=re.I)
         for item in separe_hrefs:
             print(item)
+
+def scanner(network, clientes, lock):
+    response_popen = os.popen(f"ping {network} -n 1 ").read()
+    if "TTL" in response_popen:
+        with lock:
+            clientes.append(network)
+            print(network)
 
 # Treinamento de Regex(Expressões regulares).
 def tut_regex():

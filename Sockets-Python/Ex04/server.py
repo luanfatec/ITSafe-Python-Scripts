@@ -1,21 +1,20 @@
+import threading
 import socket
-import _thread
 
+port = 9003
+host = "0.0.0.0"
 
-def config_server(host, port):
-    sock_count = 0
-    serve = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-    def config_thread(c):
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as serve:
+    def config_client_server(c):
         while True:
-            return_data = c.recv(2048).decode()
-            if not return_data:
-                print("Finalizada conexão com cliente!")
+            command = input("Entre com um comando: ")
+            if command == "sair":
+                c.sendall(command.encode())
+                c.close()
                 break
-            if return_data == "sair":
-                print("Finalizada conexão pelo cliente!")
-                break
-            c.sendall(return_data.encode())
+            c.sendall(command.encode())
+            print("Comando enviado com sucesso!")
+
         c.close()
 
     try:
@@ -25,17 +24,11 @@ def config_server(host, port):
 
         while True:
             client, address = serve.accept()
-            print(f"Recebida conexão de {address[0]}...")
-            _thread.start_new_thread(config_thread, (client,))
-            sock_count += 1
-            print(sock_count)
+            th = threading.Thread(target=config_client_server, args=(client,))
+            th.start()
 
-    except Exception as msg:
+    except socket.error as msg:
         print(msg)
 
     finally:
         serve.close()
-
-
-if __name__ == "__main__":
-    config_server("0.0.0.0", 9000)

