@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <aside class="sidebar pos-absolute z-2"
+           data-role="sidebar"
+           data-toggle="#sidebar-toggle-3"
+           id="sb3"
+           data-shift=".shifted-content">
+        <div class="sidebar-header" data-image="images/sb-bg-1.jpg">
+            <div class="avatar">
+                <img src="images/logo.jpg">
+            </div>
+            <span class="title fg-white">DNScanner</span>
+            <span class="subtitle fg-white"> 2021 © DNSecury</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li id="principal"><a><span class="mif-home icon"></span>Pricipal</a></li>
+            <li id="resultado"><a><span class="mif-table icon"></span>Resultado</a></li>
+            <li class="divider"></li>
+            <li id="sair"><a><span class="mif-exit icon"></span>Sair</a></li>
+        </ul>
+    </aside>
+    <div class="shifted-content h-100 p-ab">
+        <div class="app-bar pos-absolute bg-red z-1" data-role="appbar">
+            <button class="app-bar-item c-pointer" id="sidebar-toggle-3">
+                <span class="mif-menu fg-white"></span>
+            </button>
+        </div>
+
+        <div class="h-100 p-4">
+            <div class="container">
+
+                <section id="section-home">
+                    <div class="grid">
+
+                        <div class="row">
+
+                            <div class="cell-6 offiset-2">
+                                <input type="text" data-role="materialinput" placeholder="Digite o seu encereco de ip" id="inp1">
+                            </div>
+
+                            <div class="cell-2">
+                                <button class="button shadowed light" id="btn1">Default</button>
+                            </div>
+                            <hr/>
+
+                        </div>
+                    </div>
+                </section>
+
+                <section id="section-result" style="display: none">
+                    <div class="row">
+                        <div class="cell-12">
+                            <h3>Mapeamento de rede</h3>
+                        </div>
+                    </div>
+
+                    <ul id="result-final"></ul>
+
+                </section>
+
+            </div>
+        </div>
+
+    </div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

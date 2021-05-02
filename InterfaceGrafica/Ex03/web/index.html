@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+<body> <!--=oncontextmenu="return false" onselectstart="return false" ondragstart="return false">-->
+
+<div class="container">
+      <div class="grid">
+
+
+          <div class="row">
+            <div class="cell-12 text-center">
+              <h5>Adivinhe a palavra</h5>
+            </div>
+            <hr />
+          </div>
+
+          <div class="row">
+            <div class="cell-6 offset-2">
+              <input type="text" data-role="materialinput" placeholder="Digite uma letra" id="inp1" />
+            </div>
+
+            <div class="cell-2">
+              <input type="button" id="btn1" class="button light shadowed" value="Enviar" />
+            </div>
+          </div>
+
+          <div class="cell-12 text-center">
+            <h5 id="resultado"></h5>
+          </div>
+
+
+      </div>
+    </div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
+    <script>
+        eel.iniciar_jogo()((data) => {
+            $("#resultado").html(data)
+        });
+
+        $("#btn1").click(() => {
+            var data = $("#inp1").val()
+            eel.advinhar_letra(data)((response)=> {
+                $("#resultado").html(response)
+            })
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from Functions import *
+from main import *
 import threading
 
 my_ip = getioreso()[1]
