@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ name_page }}</title>
+
+    <style type="text/css">
+        * {
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        body {
+            background: #E0E0E0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .box-center {
+            box-shadow: 1px 3px 12px black;
+            margin-top: 10%;
+            background: #fff;
+            width: 700px;
+            height: 450px;
+            border-radius: 90px;
+        }
+
+        .box-center.jogo {
+            height: 525px;
+        }
+
+        .box-image {
+            text-align: center;
+        }
+
+        .box-button {
+            margin-top: 75px;
+            text-align: center
+        }
+
+        .box-button.send {
+            margin-top: 28px;
+        }
+
+        #comecar {
+            background: #C4C4C4;
+            padding: 15px 74px;
+            box-shadow: 2px 3px 5px black;
+            text-decoration: none;
+            color: black;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        #comecar:hover {
+            cursor: pointer;
+            color: black;
+        }
+
+        .box-image img {
+            width: 18rem;
+            margin-top: 5%;
+        }
+
+        .box-image img.play {
+            margin-top: 3%;
+        }
+
+        #content-inicio {
+            text-align: center;
+        }
+
+        #send_num {
+            background: #C4C4C4;
+            padding: 15px 74px;
+            box-shadow: 2px 3px 5px black;
+            text-decoration: none;
+            color: black;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        #send_num:hover {
+            cursor: pointer;
+        }
+
+        .box-input {
+            text-align: center;
+        }
+
+        .box-label {
+            margin-bottom: 30px;
+        }
+
+        .box-label label {
+            color: black;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .box-inp #input_num {
+            background: #F9F7F7;
+            text-align: center;
+            width: 60%;
+            padding: 7px;
+            border-radius: 15px;
+        }
+
+        .box-inp #input_num:focus {
+            outline: none;
+        }
+
+        .message {
+            color: black;
+            font-size: 1.3rem;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+
+        .message small {
+
+        }
+
+        .error-class {
+            color: red;
+        }
+        .success-class {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <section id="content-inicio">
+        <div class="box-center">
+            <div class="box-image">
+                <img src="http://cdn5.colorir.com/desenhos/color/202040/numero-0-letras-e-numeros-numeros-1619840.jpg" alt="Desenho de um zero">
+            </div>
+
+            <div class="box-button">
+                <a href="/api/adivinhe_o_numero" id="comecar">Começar jogo</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="content-jogo" style="display: none">
+        <div class="box-center jogo">
+            <div class="box-image">
+                <img class="play" src="http://cdn5.colorir.com/desenhos/color/202040/numero-0-letras-e-numeros-numeros-1619840.jpg" alt="Desenho de um zero">
+            </div>
+
+            <div class="box-input">
+                <div class="box-label">
+                    <label for="input_num">Digite um numero</label>
+                </div>
+
+                <div class="box-inp">
+                    <input type="text" id="input_num">
+                </div>
+            </div>
+
+            <div class="box-button send">
+                <button id="send_num">Enviar numero</button>
+            </div>
+
+            <div class="message">
+                <small id="message-play"></small>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        let local = document.location.pathname.split("/")[2]
+        if (local === "adivinhe_o_numero") {
+            $("#content-inicio").hide()
+            $("#content-jogo").show()
+        } else {
+            $("#content-jogo").hide()
+            $("#content-inicio").show()
+        }
+
+        $("#send_num").click(() => {
+            $("#message-play").removeClass("success-class")
+            num = parseInt($("#input_num").val())
+            $.post("/api/advinha", {"number":num}, (data) => {
+                $("#message-play").html(data[0])
+                if (data[1]) {
+                    $("#message-play").addClass("success-class")
+                } else {
+                    $("#message-play").addClass("error-class")
+                }
+            });
+        })
+    </script>
+</body>
+</html>
