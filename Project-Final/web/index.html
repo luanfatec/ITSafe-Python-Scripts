@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script type="text/javascript" src="/eel.js"></script>
+</head>
+
+<style>
+  body {
+    background: #a8a8a8;
+  }
+
+  #area-credits-shodan {
+    padding: 15px;
+  }
+
+  .box-progress-profile {
+    width: 95%;
+    margin: 0 auto;
+  }
+</style>
+
+<body> <!--=oncontextmenu="return false" onselectstart="return false" ondragstart="return false">-->
+
+
+  <header>
+    <div class="px-3 py-2 bg-dark text-white">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+          <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+          </a>
+
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+
+            <li>
+              <a href="#home" class="nav-link text-white" id="home-lk">
+                Início
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle  text-white" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">Buscas</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                <li><a class="dropdown-item" href="#search-cdir" id="search-cdir-lk">Busca por CDIR</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="#panel" class="nav-link text-white" id="panel-lk">
+                Painel
+              </a>
+            </li>
+
+            <li>
+              <a href="#settings" class="nav-link text-white" id="settings-lk">
+                Configurações
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+    <section id="home" class="container" style="display: none">
+
+      <div class="px-4 pt-5 my-5 text-center border-bottom">
+        <h1 class="display-4 fw-bold">Croshift Search</h1>
+  
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <button type="button" class="btn btn-primary btn-lg px-4 me-sm-3">Começar agora</button>
+            <!-- <button type="button" class="btn btn-outline-secondary btn-lg px-4">Secondary</button> -->
+          </div>
+        </div>
+  
+        <div class="overflow-hidden" style="">
+          <div class="container px-5">
+            <img src="images/secret.jpg" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="600" loading="lazy">
+          </div>
+        </div>
+  
+      </div>
+    
+    </section>
+  
+
+    <section id="panel" class="container" style="display: block">
+
+      <div class="container-fluid pb-3 mt-5">
+        <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
+
+          <div class="bg-light border rounded-3">
+            <br><br><br><br><br><br><br><br><br><br>
+          </div>
+
+          <div class="bg-light border rounded-3" id="area-credits-shodan">
+
+            <div class="box-progress-profile">
+              <label>monitored_ips</label>
+              <div class="progress" style="background: #212529">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="box-progress-profile">
+              <label>query_credits</label>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="box-progress-profile">
+              <label>scan_credits</label>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="box-progress-profile">
+              <label>teste</label>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <div class="box-progress-profile">
+              <label>teste</label>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="d-grid gap-3 mt-3" style="grid-template-columns: 1fr;">
+
+          <div class="bg-light border rounded-3">
+            <br><br><br><br><br><br><br><br><br><br>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section id="settings" class="container" style="display: none">
+      <h1>Configurações</h1>
+    </section>
+
+    <section id="search-cdir" class="container" style="display: none">
+        <div class="px-3 py-2 border-bottom mb-3">
+
+          <div class="container d-flex flex-wrap justify-content-center">
+            <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+              <div class="form-group">
+                <input id="search-net-api" type="search" class="form-control" placeholder="Ex: 192.168.0.0/24" aria-label="Search">
+              </div>
+            </form>
+
+            <div class="text-end">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="results-search-api"></div>
+    </section>
+
+  </main>
+
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/config-pages.js"></script>
+</body>
+</html>
