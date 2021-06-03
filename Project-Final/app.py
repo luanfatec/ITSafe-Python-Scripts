@@ -2,6 +2,7 @@ import json
 
 import eel
 from sholib import *
+import json
 
 eel.init('web')
 
@@ -33,8 +34,26 @@ def resolve_dns(hostname):
 def get_subdomais(hostname):
     return ManipuleShodan().get_subdomais(f"{hostname}")
 
+# Routa para carregamento das informações de usuário
+@eel.expose
+def load_config_user():
+    return ManipuleShodan().run_variables()
 
-try:
-    eel.start('index.html', size=(950,800), port=0)   #python will select free ephemeral ports.
-except (SystemExit, MemoryError, KeyboardInterrupt):
-    print ("Program Exit, Save Logs if Needed")
+# Rota de atualização de configurações
+@eel.expose
+def update_settings_user(data_config):
+    ManipuleShodan().update_file_config({
+        "config": [
+            data_config
+        ]
+    })
+
+if __name__ == "__main__":
+    update_settings_user({"teste": "teste"})
+
+if __name__ != "__main":
+    try:
+        eel.start('index.html', size=(950,800), port=0)   #python will select free ephemeral ports.
+    except (SystemExit, MemoryError, KeyboardInterrupt):
+        print ("Program Exit, Save Logs if Needed")
+

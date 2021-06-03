@@ -22,6 +22,38 @@
     width: 95%;
     margin: 0 auto;
   }
+
+  .box-profile {
+    text-align: center;
+  }
+
+  .img-profile {
+    width: 70px;
+    border: 3px solid #8b7e7e;
+    margin-top: 5%;
+  }
+
+  .box-img-profile {
+  }
+
+  .info-profile h1{
+    font-size: 1rem;
+    margin-top: 2%;
+  }
+
+  .info-profile p {
+    margin-top: 2%;
+  }
+
+  .info-profile p span {
+    font-size: .8rem;
+    font-weight: bold;
+  }
+
+  .info-profile p edu {
+    color: red;
+    font-size: 0.7rem;
+  }
 </style>
 
 <body> <!--=oncontextmenu="return false" onselectstart="return false" ondragstart="return false">-->
@@ -98,13 +130,23 @@
     </section>
   
 
-    <section id="panel" class="container" style="display: block">
+    <section id="panel" class="container" style="display: none">
 
       <div class="container-fluid pb-3 mt-5">
         <div class="d-grid gap-3" style="grid-template-columns: 1fr 2fr;">
 
           <div class="bg-light border rounded-3">
-            <br><br><br><br><br><br><br><br><br><br>
+            <div class="box-profile">
+
+              <div class="box-img-profile" id="info-profile-id">
+                <img src="" class="avatar img-fluid rounded-circle me-1 img-profile">
+                <div class="info-profile">
+                  <h1>My Name</h1>
+                  <p><span>Assinatura: </span><edu>Indefinida</edu></p>
+                </div>
+              </div>
+
+            </div>
           </div>
 
           <div class="bg-light border rounded-3" id="area-credits-shodan">
@@ -112,35 +154,21 @@
             <div class="box-progress-profile">
               <label>monitored_ips</label>
               <div class="progress" style="background: #212529">
-                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 0%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
 
-            <div class="box-progress-profile">
+            <div class="box-progress-profile" >
               <label>query_credits</label>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress" style="background: #212529">
+                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
 
             <div class="box-progress-profile">
               <label>scan_credits</label>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="box-progress-profile">
-              <label>teste</label>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-              </div>
-            </div>
-
-            <div class="box-progress-profile">
-              <label>teste</label>
-              <div class="progress">
-                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              <div class="progress" style="background: #212529">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
               </div>
             </div>
 
@@ -150,8 +178,8 @@
 
         <div class="d-grid gap-3 mt-3" style="grid-template-columns: 1fr;">
 
-          <div class="bg-light border rounded-3">
-            <br><br><br><br><br><br><br><br><br><br>
+          <div class="bg-light border rounded-3 p-3">
+            <button id="search">teste</button>
           </div>
 
         </div>
@@ -159,8 +187,63 @@
 
     </section>
 
-    <section id="settings" class="container" style="display: none">
-      <h1>Configurações</h1>
+    <section id="settings" class="container" style="display: block">
+      <div class="d-grid gap-3 mt-3" style="grid-template-columns: 1fr;">
+
+          <div class="bg-light border rounded-3 p-5" id="">
+            <form id="form-settings" class="row g-3 needs-validation">
+
+              <div class="col-md-12">
+                <label for="name-project" class="form-label">Nome do projeto</label>
+                <input name="name-project" type="text" class="form-control text-center" id="name-project" required disabled value="Croshift Search">
+              </div>
+
+              <div class="col-md-5">
+                <label for="name" class="form-label">Nome</label>
+                <input name="name" type="text" class="form-control" id="name" required>
+              </div>
+
+              <div class="col-md-7">
+                <label for="email" class="form-label">Email</label>
+                <div class="input-group has-validation">
+                  <span class="input-group-text" id="inputGroupPrepend">@</span>
+                  <input name="email" type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend" required>
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="username" class="form-label">Username</label>
+                <input name="username" type="text" class="form-control" id="username" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="url-shodan" class="form-label">Endereço do Shodan</label>
+                <input name="url-shodan" type="url" class="form-control" id="url-shodan" value="https://www.shodan.io" required>
+              </div>
+
+              <div class="col-md-6">
+                <label for="api-shodan" class="form-label">Endereço API Shodan</label>
+                <input name="api-shodan" type="url" class="form-control" id="api-shodan" value="https://api.shodan.io" required>
+              </div>
+
+              <div class="col-md-12">
+                <label for="image-profile" class="form-label">Imagem</label>
+                <input name="image-profile" placeholder="http://exemplo.com/avatar.png" type="url" class="form-control" id="image-profile" required>
+              </div>
+
+              <div class="col-md-12">
+                <label for="api-key" class="form-label">Chave do Shodan</label>
+                <input name="api-key" type="password" class="form-control text-center" id="api-key" required>
+              </div>
+
+              <div class="col-12">
+                <button class="btn btn-secondary w-100" type="submit">Salvar</button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
     </section>
 
     <section id="search-cdir" class="container" style="display: none">
