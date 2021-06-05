@@ -10,7 +10,8 @@ $("#search").click(() => {
 })
 
 // Update profile
-document.getElementById("form-settings").addEventListener("click", (event) => {
+
+document.getElementById("save-settings").addEventListener("click", (event) => {
     event.preventDefault();
 
     // Get form settings
@@ -27,5 +28,18 @@ document.getElementById("form-settings").addEventListener("click", (event) => {
     data_form["LINK_PROFILE"] = form_settings[6].children[1].value;
     data_form["API_KEY"] = form_settings[7].children[1].value;
 
-    eel.update_settings_user(data_form)() // Save settings
+    // Salva as configurações novas
+    eel.update_settings_user(data_form)((response) => {
+        console.log(data_form)
+
+        let resp = JSON.parse(response) // ..
+
+        if (resp.success) {
+            $.notify(resp.success, "success");
+
+        } else if (resp.error) {
+            $.notify(resp.error, "error");
+        }
+
+    })
 })

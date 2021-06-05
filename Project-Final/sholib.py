@@ -2,6 +2,8 @@
 import shodan
 import requests
 import json
+from messages import *
+import datetime
 
 
 class ManipuleShodan(object):
@@ -13,10 +15,30 @@ class ManipuleShodan(object):
         self.SHODAN = ''
         self.SHODAN_API_LINK = ''
 
+    # Função destinada a salvar os erros da aplicação
+    def save_logs(self, msg, file, type_error):
+        logs_global = ""
+        with open(f"config/logs/{file}.log", "r") as f_logs:
+            try:
+                logs_file = f_logs.readlines()
+                logs_file.append(f"[{datetime.datetime.now().strftime('%d/%m/%Y %H:%M')}] | {type_error}: {msg}\n")
+                logs_global = logs_file
+            except Exception as msg:
+                pass
+            finally:
+                f_logs.close()
+        with open(f"config/logs/{file}.log", "w") as logs:
+            try:
+                logs.writelines(logs_global)
+            except Exception as msg:
+                pass
+            finally:
+                logs.close()
+
     # Carregando as urações do arquivo .json...
     def run_variables(self):
         user_data = {}
-        with open("config/config.json", "r+", encoding='utf8') as config:
+        with open("config/config.json", "r", encoding='utf8') as config:
             try:
                 conf = json.load(config)
                 for conf_v in conf['config']:
@@ -42,9 +64,45 @@ class ManipuleShodan(object):
 
     # Atualização dos dados de configuração...
     def update_file_config(self, data_settings):
-        with open("config/config.json", "w+", encoding='utf8') as config:
-            config.write(data_settings)
-        print(data_settings)
+        config_datas = json.dumps(data_settings)
+        save_confirm = True
+
+        for data in data_settings['config']:
+            print("73 Estou no for")
+            if "@" not in data["EMAIL"]:
+                print("75 estou no primeiro if")
+                save_confirm = False
+                self.save_logs(MessagesLogs().error_update_file_config_email, "errors", "Error updated")
+                return json.dumps({"error": MessagesLogs().error_update_file_config_email})
+
+            elif data["EMAIL"] == "" or len(data["EMAIL"]) == 0 or len(data["EMAIL"].split('@')[1]) < 7 or len(data["EMAIL"].split('@')[0]) == 0 or len(data["EMAIL"].split('@')[1]) == 0:
+                print("79 estou no primeiro elif")
+                save_confirm = False
+                self.save_logs(MessagesLogs().error_update_file_config_email, "errors", "Error updated")
+                return json.dumps({"error": MessagesLogs().error_update_file_config_email})
+
+            else:
+                with open("config/config.json", "w", encoding='utf8') as config:
+                    print("70 Estou no with")
+                    try:
+                        if save_confirm:
+                            print("84 Estou aqui no confirme")
+                            config.write(str(config_datas))
+                            self.save_logs(MessagesLogs().success_update_file_config, "success", "Success updated")
+                            return json.dumps({"success": MessagesLogs().success_update_file_config})
+
+                        else:
+                            print("91 Estou aqui no else...")
+                            return json.dumps({"error": MessagesLogs().error_update_file_config_email})
+
+                    except Exception as msg:
+                        print("95 Estou aqui no exception")
+                        self.save_logs(msg, "errors", "Error exception")
+                        return json.dumps({"error": MessagesLogs().error_update_file_config})
+
+                    finally:
+                        config.close()
+
 
     # Retornar todas as informações de crédito na conta do Shodan...
     def get_api_information(self):
@@ -60,9 +118,10 @@ class ManipuleShodan(object):
                 shodanOBJ = shodan.Shodan(self.API_KEY)
                 return shodanOBJ.search(search)
             except Exception as msg:
-                return { "error": msg }
+                self.save_logs(msg, "errors", "Search error")
+                return {"error": MessagesLogs().search_error}
         else:
-            return { "error": "Argumento inválido!" }
+            return { "error": MessagesLogs().search_error }
 
     # Realiza uma busca e um ip determinado, retornando informações inportantes sobre o host.
     def get_info_ip(self, ip):
