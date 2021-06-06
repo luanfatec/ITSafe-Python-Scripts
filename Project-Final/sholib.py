@@ -68,41 +68,56 @@ class ManipuleShodan(object):
         save_confirm = True
 
         for data in data_settings['config']:
-            print("73 Estou no for")
             if "@" not in data["EMAIL"]:
-                print("75 estou no primeiro if")
                 save_confirm = False
                 self.save_logs(MessagesLogs().error_update_file_config_email, "errors", "Error updated")
                 return json.dumps({"error": MessagesLogs().error_update_file_config_email})
 
             elif data["EMAIL"] == "" or len(data["EMAIL"]) == 0 or len(data["EMAIL"].split('@')[1]) < 7 or len(data["EMAIL"].split('@')[0]) == 0 or len(data["EMAIL"].split('@')[1]) == 0:
-                print("79 estou no primeiro elif")
                 save_confirm = False
                 self.save_logs(MessagesLogs().error_update_file_config_email, "errors", "Error updated")
                 return json.dumps({"error": MessagesLogs().error_update_file_config_email})
 
             else:
                 with open("config/config.json", "w", encoding='utf8') as config:
-                    print("70 Estou no with")
                     try:
                         if save_confirm:
-                            print("84 Estou aqui no confirme")
                             config.write(str(config_datas))
                             self.save_logs(MessagesLogs().success_update_file_config, "success", "Success updated")
                             return json.dumps({"success": MessagesLogs().success_update_file_config})
 
                         else:
-                            print("91 Estou aqui no else...")
                             return json.dumps({"error": MessagesLogs().error_update_file_config_email})
 
                     except Exception as msg:
-                        print("95 Estou aqui no exception")
                         self.save_logs(msg, "errors", "Error exception")
                         return json.dumps({"error": MessagesLogs().error_update_file_config})
 
                     finally:
                         config.close()
 
+    # Realiza a leitura do arquivo de logs...
+    def get_logs(self, type_log):
+        data_logs = []
+        try:
+            with open(f"config/logs/{type_log}.log") as logs_file:
+                try:
+                    for log in logs_file.readlines():
+                        data_logs.append(log.strip())
+                    self.save_logs(MessagesLogs().get_log_success, "success", "Sucesso ao recuperar os logs.")
+                    return json.dumps({
+                        "logs": data_logs
+                    })
+
+                except Exception as msg:
+                    self.save_logs(f"{MessagesLogs().get_log_success} {type_log}.log", "success", "Sucesso ao recuperar os logs.")
+                    return json.dumps({"error": MessagesLogs().get_log_error})
+
+                finally:
+                    logs_file.close()
+        except Exception as msg:
+            self.save_logs(f"{MessagesLogs().get_log_success} {type_log}.log", "success", "Sucesso ao recuperar os logs.")
+            return json.dumps({"error": MessagesLogs().get_log_error})
 
     # Retornar todas as informações de crédito na conta do Shodan...
     def get_api_information(self):
@@ -172,5 +187,4 @@ class ManipuleShodan(object):
 
 if __name__=="__main__":
     test = ManipuleShodan()
-    test.update_file_config({'NAME_PROJECT': 'Croshift Search', 'NAME': 'Nome do Usuário', 'EMAIL': 'email@example.com', 'USERNAME': 'username', 'SHODAN': 'https://www.shodan.io', 'SHODAN_API_LINK': 'https://api.shodan.io', 'LINK_PROFILE': 'https://avatars.githubusercontent.com/u/44438249?v=4', 'API_KEY': 'XyVljbUhatZ0Q4ejdXZgAEjOfn8PxQxk'})
-    test.run_variables()
+    print(test.get_logs("success"))

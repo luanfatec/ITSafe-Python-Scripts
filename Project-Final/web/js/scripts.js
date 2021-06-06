@@ -2,10 +2,23 @@ function myforeach(data, idx, err) {
     console.log(data)
 }
 
-$("#search").click(() => {
-    eel.load_config_user()(d => {
+$("#loag_logs").click(() => {
+    let type_log = document.getElementById("type_log")
+
+    eel.get_logs(type_log.options[type_log.options.selectedIndex].value)(d => {
         const data = JSON.parse(d)
         console.log(data)
+        if (data.logs) {
+            let content_logs = document.getElementById("content-logs")
+            content_logs.innerHTML = ""
+            for (let log of data.logs) {
+                let div = document.createElement("div")
+                div.innerText = log
+                content_logs.appendChild(div)
+            }
+        } else if (data.error) {
+            $.notify(data.error, "error");
+        }
     });
 })
 
@@ -30,8 +43,6 @@ document.getElementById("save-settings").addEventListener("click", (event) => {
 
     // Salva as configurações novas
     eel.update_settings_user(data_form)((response) => {
-        console.log(data_form)
-
         let resp = JSON.parse(response) // ..
 
         if (resp.success) {
