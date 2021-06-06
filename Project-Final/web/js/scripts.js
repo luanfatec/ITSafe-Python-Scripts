@@ -4,18 +4,26 @@ function myforeach(data, idx, err) {
 
 $("#loag_logs").click(() => {
     let type_log = document.getElementById("type_log")
+    let limit_log = document.getElementById("limit-log")
+    console.log(limit_log.options[limit_log.options.selectedIndex].value)
 
     eel.get_logs(type_log.options[type_log.options.selectedIndex].value)(d => {
         const data = JSON.parse(d)
-        console.log(data)
         if (data.logs) {
             let content_logs = document.getElementById("content-logs")
             content_logs.innerHTML = ""
-            for (let log of data.logs) {
+            let count_log = 0
+            for (let log of data.logs.reverse()) {
                 let div = document.createElement("div")
                 div.innerText = log
                 content_logs.appendChild(div)
+                count_log += 1
+
+                if (parseInt(limit_log.options[limit_log.options.selectedIndex].value) === count_log) {
+                    break
+                }
             }
+            console.log(count_log)
         } else if (data.error) {
             $.notify(data.error, "error");
         }
