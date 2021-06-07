@@ -1,14 +1,14 @@
 {
   "config": [
     {
-      "API_KEY": "XyVljbUhatZ0Q4ejdXZgAEjOfn8PxQxk",
+      "API_KEY": "",
       "NAME_PROJECT": "Search Hack",
       "SHODAN": "https://www.shodan.io",
       "SHODAN_API_LINK": "https://api.shodan.io",
       "LINK_PROFILE": "",
-      "EMAIL": "luanpsantos@outlook.com.br",
-      "NAME": "Luan Santos",
-      "USERNAME": "luanpsantos"
+      "EMAIL": "",
+      "NAME": "",
+      "USERNAME": ""
     }
   ]
 }
